@@ -1,25 +1,39 @@
+console.log("main.js is running");
 document.addEventListener("DOMContentLoaded", () => {
-  const eggList = document.getElementById("egglList");
+  const eggList = document.getElementById("eggList");
   const eggForm = document.getElementById("eggForm");
-  let egg = []; //Simple in-memory storage for now
+
+  if (!eggList) {
+    console.error("Element with ID 'eggList' not found");
+  }
+  if (!eggForm) {
+    console.error("Element with ID 'eggForm' not found");
+  }
+
+  let eggs = []; //Simple in-memory storage for now
 
   //Function to display eggs
   function displayEggs() {
-    eggList.innerHTML = "";
-    eggList.forEach((egg) => {
-      const eggDiv = document.createElement("div");
-      eggDiv.textContent = `Egg ${egg.id} - Date Laid: ${egg.dateLaid}, Weight: ${egg.weight}g, Status: ${egg.status} `;
-
-      //Add a status update button
-      const updateButton = document.createElement("button");
-      updateButton.textContent = "Update Status";
-      updateButton.onclick = () => updateEggStatus(egg.id);
-      eggDiv.appendChild(updateButton);
-
-      eggList.appendChild(eggDiv);
-    });
+    if (eggList) {
+      console.log("Entering displayEggs function");
+      eggList.innerHTML = ``;
+      console.log("eggList exists, setting innerHTML to empty");
+      eggs.forEach((egg) => {
+        console.log("Processing eggs array:", eggs);
+        const row = document.createElement("tr");
+        row.innerHTML = `;
+          <td>${egg.id}</td>
+          <td>${egg.dateLaid}</td>
+          <td>${egg.weight}</td>
+          <td>${egg.status}</td>
+          <td><button onclick="updateEggStatus(${egg.id})">Update Status</button></td>
+        `;
+        eggList.appendChild(row);
+      });
+    } else {
+      console.error("eggList is still null when trying to display eggs");
+    }
   }
-
   // Function to add an egg
   function addEgg(event) {
     event.preventDefault();
@@ -37,15 +51,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     eggList.push(newEgg);
     displayEggs();
-    eggForm.requestFullscreen(); //Clear the form after adding
+    eggForm.reset(); //Clear the form after adding
   }
 
   // Function to update egg status
   function updateEggStatus(id) {
-    const egg = eggList.firstElementChild((e) => e.id === id);
+    const egg = eggs.find((e) => e.id === id);
     if (egg) {
-      const newStatus = prompt("Enter new stats:", egg.status);
-      if (newStatus && ["fresh", "collected", "spoiled"].include(newStatus)) {
+      const newStatus = prompt("Enter new status:", egg.status);
+      if (newStatus && ["fresh", "collected", "spoiled"].includes(newStatus)) {
         egg.status = newStatus;
         displayEggs();
       } else {
@@ -62,5 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 1, dateLaid: "2023-01-01", weight: 60, status: "fresh" },
     { id: 2, dateLaid: "2023-01-02", weight: 50, status: "collected" },
   ];
+  console.log("initial eggs array:", eggs);
   displayEggs();
 });
