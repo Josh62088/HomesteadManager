@@ -19,7 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  let eggs = []; //Simple in-memory storage for now
+  // State Management
+  let eggs = []; // Array to store all eggs
+  let cartons = []; // Array to store all cartons
 
   //Function to display eggs
   function displayEggs() {
@@ -43,6 +45,23 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error('eggList is still null when trying to display eggs');
     }
   }
+
+  // Function to display cartons with their details
+  function displayCartons() {
+    const cartonList = document.getElementById('cartonList');
+    cartonList.innerHTML = '';
+    cartons.forEach((carton) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${carton.id}</td>
+        <td>${carton.startDate.toDateString()} - ${carton.endDate.toDateString()}</td>
+        <td>${carton.expirationDate.toDateString()}</td>
+        <td>${carton.currentQuantity}/${carton.capacity}</td>
+      `;
+      cartonList.appendChild(row);
+    });
+  }
+
   // Function to add an egg
   function addEgg(event) {
     event.preventDefault();
@@ -81,6 +100,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  function checkEggStatuses() {
+    cartons.forEach((carton) => carton.checkEggStatus());
+    displayEggs(); // Refresh the UI to reflect status changes
+  }
+
   // Event listeners
   eggForm.addEventListener('submit', addEgg);
 
@@ -89,7 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 1, dateLaid: '2023-01-01', quantity: 60, status: 'fresh' },
     { id: 2, dateLaid: '2023-01-02', quantity: 50, status: 'collected' },
   ];
-  window.eggs = eggs; // Make eggs accessible globally
-  console.log('initial eggs array:', eggs);
+
+  cartons = [new Carton('2023-01-01', '2023-01-01')];
+
   displayEggs();
+  displayCartons();
 });
