@@ -3,23 +3,23 @@ const EggRepository = require("../repositories/EggRepository");
 
 class EggCollectionService {
   constructor() {
-    this.EggRepository = new EggRepository();
+    this.eggRepository = new EggRepository();
   }
 
-  collectEgg(dateLaid, weight) {
+  async collectEgg(dateLaid, weight) {
     const egg = new Egg(dateLaid, weight);
-    return this.EggRepository.save(egg);
+    return await this.eggRepository.save(egg);
   }
 
-  getAllEggs() {
-    return this.EggRepository.findAll();
+  async getAllEggs() {
+    return await this.eggRepository.findAll();
   }
 
-  updateEggStatus() {
-    const egg = this.EggRepository.findById(eggId);
+  async updateEggStatus(eggId, newStatus) {
+    const egg = await this.eggRepository.findById(eggId);
     if (egg) {
       egg.updateStatus(newStatus);
-      return this.EggRepository.update(egg);
+      return await this.eggRepository.update(egg);
     }
     return null;
   }

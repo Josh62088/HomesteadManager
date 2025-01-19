@@ -3,7 +3,7 @@ class EggRepository {
     this.eggs = []; //Simulating a database with an array
   }
 
-  save(egg) {
+  async save(egg) {
     egg.id = this.eggs.length + 1; //Simple ID for now
     this.eggs.push(egg);
     return egg;
