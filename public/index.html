@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Egg Collection Tracker</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div id="app">
+            <h1>Egg Collection Tracker</h1>
+            <div id="eggList"></div>
+            <form id="eggForm">
+                <input type="date" id="dateLaid" required>
+                <input type="number" id="weight" placeholder="Weight in grams" required>
+                <select id=""status">
+                    <option value="fresh">Fresh</option>
+                    <option value="collected">Collected</option>
+                    <option value="spoiled">Spoiled</option>
+                </select>
+                <button type="submit">Add Egg</button>
+            </form>
+        </div>
+        <script src="main.js"></script>
+    </body>
+</html>
