@@ -22,6 +22,7 @@
   "homepage": "https://github.com/Josh62088/HomesteadManager#readme",
   "dependencies": {
     "express": "^4.21.2",
+    "homesteadmanager": "file:",
     "jest": "^29.7.0",
     "moment": "^2.30.1",
     "pg": "^8.13.1",

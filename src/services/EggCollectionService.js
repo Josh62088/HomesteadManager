@@ -1,13 +1,13 @@
-const Egg = require("../models/Egg");
-const EggRepository = require("../repositories/EggRepository");
+const Egg = require('../models/Egg');
+const EggRepository = require('../repositories/EggRepository');
 
 class EggCollectionService {
   constructor() {
     this.eggRepository = new EggRepository();
   }
 
-  async collectEgg(dateLaid, weight) {
-    const egg = new Egg(dateLaid, weight);
+  async collectEgg(dateLaid, quantity) {
+    const egg = new Egg(dateLaid, quantity);
     return await this.eggRepository.save(egg);
   }
 

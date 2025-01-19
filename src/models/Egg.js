@@ -1,8 +1,9 @@
 class Egg {
-  constructor(dateLaid, weight, status = "fresh") {
+  constructor(dateLaid, quantity, status = 'fresh') {
     this.dateLaid = new Date(dateLaid); //Assuming date is passed as string or Date object
-    this.weight = weight; // in grams
+    this.quantity = quantity;
     this.status = status; // 'collected', 'Assigned', spoiled
+    this.cartonId = cartonId; // New property to link eggs to cartons
   }
 
   get ageInDays() {
@@ -12,15 +13,15 @@ class Egg {
   }
 
   updateStatus(newStatus) {
-    if (["fresh", "collected", "spoiled"].includes(newStatus)) {
+    if (['fresh', 'collected', 'spoiled'].includes(newStatus)) {
       this.status = newStatus;
     } else {
-      throw new Error("Invalid egg status");
+      throw new Error('Invalid egg status');
     }
   }
 
   get isFresh() {
-    return this.ageInDays < 7 && this.status === "fresh"; // Assumes eggs stay fresh for up to 7 days
+    return this.ageInDays < 7 && this.status === 'fresh'; // Assumes eggs stay fresh for up to 7 days
   }
 }
 
